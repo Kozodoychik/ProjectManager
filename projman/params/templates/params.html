@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Параметры{% endblock title %}
+{% block page_title %}Параметры{% endblock page_title %}
+
+{% block content %}
+<section>
+	<form action="/update-params" method="POST">
+		<div class="form-field">
+			<label for="company-name"><span>Название компании</span></label>
+			<input class="form-input-text" id="company-name" name="company-name" type="text"/>
+		</div>
+		<div class="form-field">
+			<label for="head-name"><span>ФИО руководителя</span></label>
+			<input class="form-input-text" id="head-name" name="head-name" type="text"/>
+		</div>
+		<div class="form-field">
+			<label for="head-pos"><span>Должность руководителя</span></label>
+			<input class="form-input-text" id="head-pos" name="head-pos" type="text"/>
+		</div>
+		<div class="form-field">
+			<label for="contact-number"><span>Контактный телефон</span></label>
+			<input class="form-input-text" id="contact-number" name="contact-number" type="tel"/>
+		</div>
+		<div class="form-field">
+			<label for="contact-number"><span>Контактный Email</span></label>
+			<input class="form-input-text" id="contact-email" name="contact-email" type="email"/>
+		</div>
+		<div class="form-btns">
+			<input class="btn" type="submit" value="Ок"/>
+			<button class="btn cancel-btn">Отмена</button>
+		</div>
+	</form>
+</section>
+{% endblock content %}

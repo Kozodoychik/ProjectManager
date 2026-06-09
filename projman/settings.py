@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 	'projman.core',
-	'projman.testapp'
+	'projman.testapp',
+	'projman.params',
+	'projman.workspace'
 ]
 
 MIDDLEWARE = [

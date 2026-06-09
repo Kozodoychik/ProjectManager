@@ -15,12 +15,14 @@
 	<body>
 		<header>
 			<a href="/">Менеджер проектов</a>
+			<a id="params-btn" href="/params">ООО "Зеленоглазое такси"</a>
 		</header>
 
 		<div class="nav-block">
 			{% include "navigation.html" %}
 
 			<main>
+				<h1>{% block page_title %}{% endblock page_title %}</h1>
 				{% block content %}{% endblock %}
 			</main>
 		</div>
