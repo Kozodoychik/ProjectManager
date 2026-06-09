@@ -4,5 +4,4 @@ from django.template import loader
 
 # Create your views here.
 def workspace(request):
-	template = loader.get_template("workspace.html")
-	return HttpResponse(template.render())
+	return render(request, "workspace.html")

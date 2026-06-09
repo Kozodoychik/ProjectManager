@@ -4,5 +4,4 @@ from django.template import loader
 
 # Create your views here.
 def testapp(request):
-	template = loader.get_template("template.html")
-	return HttpResponse(template.render())
+	return render(request, "template.html")
