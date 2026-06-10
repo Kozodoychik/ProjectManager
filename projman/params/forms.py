@@ -10,5 +10,5 @@ class ParamForm(forms.ModelForm):
 			"head_name" : "ФИО руководителя",
 			"head_pos" : "Должность руководителя",
 			"contact_number" : "Контактный телефон",
-			"contact_email" : "Контактный Email"
+			"contact_email" : "Контактный адрес эл. почты"
 		}

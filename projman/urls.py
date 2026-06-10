@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('test/', include('projman.testapp.urls')),
 	path('params/', include('projman.params.urls')),
-	path('', include('projman.workspace.urls'))
+	path('workspace/', include('projman.workspace.urls')),
+	path('', include('projman.login.urls')),
 ]

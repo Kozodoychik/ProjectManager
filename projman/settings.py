@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-jx8hx&b*o6#3u6v0f*6545_gvsb+9v8b*uz_a)tbn%$0#i&mli
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 	'projman.core',
-	'projman.testapp',
 	'projman.params',
-	'projman.workspace'
+	'projman.workspace',
+	'projman.login',
+	'projman.emailauth'
 ]
 
 MIDDLEWARE = [
@@ -104,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ['projman.emailauth.backend.EmailAuthBackend']
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -121,3 +123,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGIN_URL = '/login'

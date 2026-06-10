@@ -8,6 +8,8 @@
 html, body {
 	margin: 0;
 	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 header {
@@ -24,8 +26,9 @@ header a {
 	text-decoration: none;
 }
 
-#params-btn {
+.left-btn {
 	float: right;
+	margin-left: 20px;
 }
 
 .nav-block {
@@ -65,6 +68,14 @@ aside a:hover {
 main {
 	padding: 26px;
 	background-color: #dfe6e9;
+	height: stretch;
+}
+
+.centered {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 section {
@@ -74,17 +85,34 @@ section {
 	padding: 26px;
 }
 
-form {
+form, fieldset {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	border: none;
+	padding: 0;
+}
+
+fieldset {
+	padding-block: 20px;
+}
+
+fieldset *, #login-form {
 	width: 400px;
+}
+
+fieldset legend {
+	background-color: #5485965d;
+	border-radius: 2px;
+	padding: 5px 10px;
+	width: stretch;
 }
 
 .form-field {
 	display: flex;
 	flex-direction: column;
 	gap: 3px;
+	text-align: left;
 }
 
 .form-input-text {
@@ -126,4 +154,16 @@ form {
 	cursor: pointer;
 	background-color: #00000000;
 	color: #548696;
+}
+
+.login-section {
+	display: flex;
+	justify-content: center;
+}
+
+.message {
+	color: red;
+	background-color: #ff000022;
+	padding: 5px;
+	border-radius: 2px;
 }

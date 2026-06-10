@@ -1,0 +1,26 @@
+{% extends "base-nonav.html" %}
+
+{% block title %}Вход{% endblock title %}
+{% block page_title %}Вход{% endblock page_title %}
+
+{% block content %}
+<section class="login-section">
+	<form id="login-form" action="/login/" method="POST">
+		{% if message %}
+			<span class="message">{{ message }}</span>
+		{% endif %}
+		{% csrf_token %}
+		{% for field in form %}
+		<div class="form-field">
+			<label for="{{ field.name }}"><span>{{ field.label }}</span></label>
+			<input class="form-input-text" id="{{ field.name }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ field.value }}" required />
+		</div>
+		{% endfor %}
+
+		<input type="hidden" name="next" value="{{ next }}"/>
+		<div class="form-btns">
+			<input class="btn" type="submit" value="Войти"/>
+		</div>
+	</form>
+</section>
+{% endblock content %}
