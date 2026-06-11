@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Исполнители{% endblock title %}
+{% block page_title %}Исполнители{% endblock page_title %}
+
+{% block content %}
+<section>
+	<table>
+		<tr class="table-header">
+			<th>ФИО</th>
+			<th>Тип оформления</th>
+			<th>Расчётная налоговая ставка</th>
+			<th>Единица</th>
+			<th>Стоимость услуг за единицу</th>
+		</tr>
+
+		{% for executor in executors %}
+		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td>{{ executor.name }}</td>
+			<td>{{ executor.get_registration_type }}</td>
+			<td>{{ executor.tax_rate }}%</td>
+			<td>{{ executor.get_unit }}</td>
+			<td>{{ executor.unit_cost }} руб.</td>
+		</tr>
+		{% endfor %}	
+	</table>
+</section>
+{% endblock content %}

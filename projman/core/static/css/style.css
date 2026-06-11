@@ -167,3 +167,26 @@ fieldset legend {
 	padding: 5px;
 	border-radius: 2px;
 }
+
+table {
+	border: solid 1px #5485963b;
+	border-radius: 2px;
+	border-spacing: 0;
+
+	font-size: medium;
+
+	width: 100%;
+}
+
+th {
+	padding: 10px;
+	text-align: left;
+}
+
+td {
+	padding: 5px 10px;
+}
+
+.tr-odd {
+	background-color: #395b661e;
+}

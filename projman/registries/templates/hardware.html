@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Оборудование{% endblock title %}
+{% block page_title %}Оборудование{% endblock page_title %}
+
+{% block content %}
+<section>
+	<table>
+		<tr class="table-header">
+			<th>Название</th>
+			<th>Тип приобретения</th>
+			<th>Эксплуатационная стоимость</th>
+			<th>Единица</th>
+			<th>Стоимость услуг за единицу</th>
+		</tr>
+
+		{% for device in hardware %}
+		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td>{{ device.name }}</td>
+			<td>{{ device.get_purchase_type }}</td>
+			<td>{{ device.operating_cost }} руб.</td>
+			<td>{{ device.get_unit }}</td>
+			<td>{{ device.unit_cost }} руб.</td>
+		</tr>
+		{% endfor %}	
+	</table>
+</section>
+{% endblock content %}

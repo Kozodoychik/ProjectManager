@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Сотрудники{% endblock title %}
+{% block page_title %}Сотрудники{% endblock page_title %}
+
+{% block content %}
+<section>
+	<table>
+		<tr class="table-header">
+			<th>ФИО</th>
+			<th>Должность</th>
+			<th>Заработная плата (в месяц)</th>
+			<th>Расчётная налоговая ставка</th>
+		</tr>
+
+		{% for employee in staff %}
+		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td>{{ employee.name }}</td>
+			<td>{{ employee.position }}</td>
+			<td>{{ employee.salary }} руб.</td>
+			<td>{{ employee.tax_rate }}%</td>
+		</tr>
+		{% endfor %}	
+	</table>
+</section>
+{% endblock content %}

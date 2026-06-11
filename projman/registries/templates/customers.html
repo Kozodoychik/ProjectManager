@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Заказчики{% endblock title %}
+{% block page_title %}Заказчики{% endblock page_title %}
+
+{% block content %}
+<section>
+	<table>
+		<tr class="table-header">
+			<th>ИНН</th>
+			<th>Тип заказчика</th>
+			<th>Название</th>
+			<th>Руководитель</th>
+			<th>Контактный адрес эл.почты</th>
+			<th>Контактный телефон</th>
+		</tr>
+
+		{% for customer in customers %}
+		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td>{{ customer.inn }}</td>
+			<td>{{ customer.get_type }}</td>
+			<td>{{ customer.name }}</td>
+			<td>{{ customer.customer_name }}</td>
+			<td>{{ customer.contact_email }}</td>
+			<td>{{ customer.contact_number }}</td>
+		</tr>
+		{% endfor %}	
+	</table>
+</section>
+{% endblock content %}

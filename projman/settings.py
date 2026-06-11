@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 	'projman.params',
 	'projman.workspace',
 	'projman.login',
-	'projman.emailauth'
+	'projman.emailauth',
+	'projman.registries'
 ]
 
 MIDDLEWARE = [
