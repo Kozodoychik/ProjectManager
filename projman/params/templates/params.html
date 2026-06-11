@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load widget_tweaks %}
+
 {% block title %}Параметры{% endblock title %}
 {% block page_title %}Параметры{% endblock page_title %}
 
@@ -12,7 +14,8 @@
 			{% for field in form %}
 			<div class="form-field">
 				<label for="{{ field.name }}"><span>{{ field.label }}</span></label>
-				<input class="form-input-text" id="{{ field.name }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ field.value }}" required />
+				<!-- <input class="form-input-text" id="{{ field.name }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ field.value }}" required /> -->
+				 {% render_field field class="form-input-text" id=field.name %}
 			</div>
 			{% endfor %}
 		</fieldset>

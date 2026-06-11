@@ -29,7 +29,7 @@ class Executors(models.Model):
 
 	name = models.CharField(max_length=255)
 	registration_type = models.IntegerField(choices=RegistrationType, default=RegistrationType.GPH)
-	tax_rate = models.IntegerField()
+	tax_rate = models.IntegerField(default=0)
 	unit = models.IntegerField(choices=Units, default=Units.HOURS)
 	unit_cost = models.IntegerField()
 
@@ -50,9 +50,9 @@ class Hardware(models.Model):
 		FULL	= 2, gettext_lazy("Полная стоимость")
 
 	name = models.CharField(max_length=255)
-	description = models.CharField(max_length=1024)
+	description = models.TextField(max_length=1024)
 	purchase_type = models.IntegerField(choices=PurchaseType, default=PurchaseType.OWN)
-	operating_cost = models.IntegerField()
+	operating_cost = models.IntegerField(default=0)
 	unit = models.IntegerField(choices=Units, default=Units.HOURS)
 	unit_cost = models.IntegerField()
 
@@ -66,4 +66,4 @@ class Staff(models.Model):
 	name = models.CharField(max_length=255)
 	position = models.CharField(max_length=255)
 	salary = models.IntegerField()
-	tax_rate = models.IntegerField()
+	tax_rate = models.IntegerField(default=0)
