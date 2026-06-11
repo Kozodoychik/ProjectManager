@@ -1,12 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Исполнители{% endblock title %}
 {% block page_title %}Исполнители{% endblock page_title %}
 
 {% block content %}
 <section>
+	<div class="toolbar">
+		<a id="btn-create" href="/">Создать</a>
+		<a class="disabled" id="btn-edit" href="/">Изменить</a>
+		<a class="disabled" id="btn-delete" href="/">Удалить</a>
+	</div>
 	<table>
 		<tr class="table-header">
+			<th><input id="select-all-checkbox" type="checkbox"/></th>
 			<th>ФИО</th>
 			<th>Тип оформления</th>
 			<th>Расчётная налоговая ставка</th>
@@ -16,6 +23,7 @@
 
 		{% for executor in executors %}
 		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td><input class="field-checkbox" type="checkbox" data-id="{{ executor.id }}"/></td>
 			<td>{{ executor.name }}</td>
 			<td>{{ executor.get_registration_type }}</td>
 			<td>{{ executor.tax_rate }}%</td>
@@ -26,3 +34,7 @@
 	</table>
 </section>
 {% endblock content %}
+
+{% block footer %}
+<script src="{% static 'js/table-toolbar.js' %}"></script>
+{% endblock footer %}

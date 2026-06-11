@@ -190,3 +190,25 @@ td {
 .tr-odd {
 	background-color: #395b661e;
 }
+
+.toolbar {
+	display: flex;
+	gap: 20px;
+	padding-inline: 10px;
+	margin-bottom: 20px;
+}
+
+.toolbar a {
+	text-decoration: none;
+	color: black;
+}
+
+.toolbar a:hover {
+	color: #548696;
+}
+
+.toolbar a.disabled {
+	pointer-events: none;
+	cursor: default;
+	color: gray;
+}
