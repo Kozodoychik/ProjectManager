@@ -4,12 +4,16 @@
 {% block title %}Заказчики{% endblock title %}
 {% block page_title %}Заказчики{% endblock page_title %}
 
+{% block header %}
+<meta name="csrf-token" content="{{ csrf_token }}"/>
+{% endblock header %}
+
 {% block content %}
 <section>
 	<div class="toolbar">
 		<a id="btn-create" href="create">Создать</a>
-		<a class="disabled" id="btn-edit" href="/">Изменить</a>
-		<a class="disabled" id="btn-delete" href="/">Удалить</a>
+		<a class="disabled" id="btn-edit">Изменить</a>
+		<a class="disabled" id="btn-delete">Удалить</a>
 	</div>
 	<table>
 		<tr class="table-header">

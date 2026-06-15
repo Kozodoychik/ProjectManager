@@ -5,6 +5,8 @@ let selectAllCheckbox = document.getElementById("select-all-checkbox");
 
 let fieldsCount = document.getElementsByClassName("field-checkbox").length;
 
+let csrfToken = document.querySelector("meta[name='csrf-token']").content;
+
 let selectedFields = [];
 
 
@@ -49,8 +51,9 @@ function onCheckboxChange(e) {
 function selectAll(e) {
 	document.querySelectorAll(".field-checkbox").forEach(checkbox => {
 		checkbox.checked = e.target.checked;
-		if (e.target.checked)
-			selectedFields.push(parseInt(e.target.dataset.id));
+		if (e.target.checked) {
+			selectedFields.push(parseInt(checkbox.dataset.id));
+		}
 	});
 
 	if (!e.target.checked)
@@ -61,6 +64,34 @@ function selectAll(e) {
 
 document.querySelectorAll(".field-checkbox").forEach(checkbox => {
 	checkbox.addEventListener("change", onCheckboxChange)
+});
+
+deleteBtn.addEventListener("click", (e) => {
+	let f = document.createElement("form");
+	f.action = "delete";
+	f.method = "POST";
+
+	let i = document.createElement("input");
+	i.type = "hidden";
+	i.name = "ids";
+	i.value = JSON.stringify(selectedFields);
+
+	let csrf = document.createElement("input");
+	csrf.type = "hidden";
+	csrf.name = "csrfmiddlewaretoken";
+	csrf.value = csrfToken;
+
+	f.appendChild(csrf);
+	f.appendChild(i);
+
+	document.body.appendChild(f);
+	f.submit();
+});
+
+editBtn.addEventListener("click", (e) => {
+	if (selectedFields.length != 1) return;
+
+	window.location = `edit/${selectedFields[0]}`;
 });
 
 selectAllCheckbox.addEventListener("change", selectAll);

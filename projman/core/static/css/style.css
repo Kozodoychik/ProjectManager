@@ -207,6 +207,8 @@ td {
 
 .toolbar a:hover {
 	color: #548696;
+	pointer-events: auto;
+	cursor: pointer;
 }
 
 .toolbar a.disabled {
