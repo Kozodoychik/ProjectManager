@@ -49,6 +49,7 @@ def create_customer_view(request: HttpRequest):
 @login_required
 def create_executor_view(request: HttpRequest):
 	form = ExecutorForm()
+	message = None
 
 	if request.method == "POST":
 		form = ExecutorForm(request.POST)
@@ -64,6 +65,7 @@ def create_executor_view(request: HttpRequest):
 @login_required
 def create_device_view(request):
 	form = DeviceForm()
+	message = None
 
 	if request.method == "POST":
 		form = DeviceForm(request.POST)
@@ -79,6 +81,7 @@ def create_device_view(request):
 @login_required
 def create_employee_view(request):
 	form = EmployeeForm()
+	message = None
 
 	if request.method == "POST":
 		form = EmployeeForm(request.POST)

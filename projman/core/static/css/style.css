@@ -216,3 +216,45 @@ td {
 	cursor: default;
 	color: gray;
 }
+
+.workspaces {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	gap: 10px;
+}
+
+.add-workspace-btn {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.workspaces-toolbar {
+	display: flex;
+	gap: 20px;
+	margin-block: 10px;
+}
+
+.workspaces-toolbar a {
+	text-decoration: none;
+	color: black;
+}
+
+.workspaces-toolbar a:hover {
+	color: #548696;
+	cursor: pointer;
+}
+
+.add-workspace-btn a {
+	text-decoration: none;
+	color: black;
+}
+
+.workspace-card-header {
+	width: min-content;
+}
+
+.workspace-card-header:hover {
+	cursor: pointer;
+}
