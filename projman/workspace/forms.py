@@ -4,10 +4,14 @@ from .models import *
 class WorkspaceForm(forms.ModelForm):
 	class Meta:
 		model = Workspace
-		fields = ["name", "slug", "admin", "users"]
+		fields = ["name", "slug", "admin"]
 		labels = {
 			"name" : "Название рабочей области",
 			"slug" : "Поддомен",
 			"admin" : "Администратор",
-			"users" : "Пользователи"
 		}
+
+	def __init__(self, *args, **kwargs):
+		super(WorkspaceForm, self).__init__(*args, **kwargs)
+
+		self.fields["slug"].required = False

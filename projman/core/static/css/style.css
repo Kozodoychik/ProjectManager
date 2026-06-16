@@ -252,7 +252,7 @@ td {
 }
 
 .workspace-card-header {
-	width: min-content;
+	width: max-content;
 }
 
 .workspace-card-header:hover {

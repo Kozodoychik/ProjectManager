@@ -12,8 +12,8 @@
 		<h2 class="workspace-card-header" data-slug="{{ workspace.slug }}">{{ workspace.name }}</h2>
 		<span>Проектов: </span>
 		<div class="workspaces-toolbar">
-			<a href="edit/{{ workspace.slug }}">Изменить</a>
-			<a href="delete/{{ workspace.slug }}">Удалить</a>
+			<a href="{{ workspace.slug }}/edit">Изменить</a>
+			<a href="{{ workspace.slug }}/delete">Удалить</a>
 		</div>
 	</section>
 	{% endfor %}
