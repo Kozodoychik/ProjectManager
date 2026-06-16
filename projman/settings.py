@@ -113,7 +113,7 @@ AUTHENTICATION_BACKENDS = ['projman.emailauth.backend.EmailAuthBackend']
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -127,4 +127,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
+
+APPEND_SLASH = True

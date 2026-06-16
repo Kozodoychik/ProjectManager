@@ -10,7 +10,7 @@
 	{% for workspace in workspaces %}
 	<section class="workspace-card">
 		<h2 class="workspace-card-header" data-slug="{{ workspace.slug }}">{{ workspace.name }}</h2>
-		<span>Проектов: </span>
+		<span>Проектов: {{ workspace.workspace_projects.count }}</span>
 		<div class="workspaces-toolbar">
 			<a href="{{ workspace.slug }}/edit">Изменить</a>
 			<a href="{{ workspace.slug }}/delete">Удалить</a>

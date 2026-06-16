@@ -16,6 +16,9 @@ class Customers(models.Model):
 
 	def get_type(self):
 		return self.CustomerType(self.customer_type).label
+	
+	def __str__(self):
+		return f"{self.name or self.customer_name}"
 
 class Executors(models.Model):
 	class RegistrationType(models.IntegerChoices):

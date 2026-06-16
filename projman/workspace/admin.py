@@ -11,3 +11,6 @@ class WorkspaceUsersInline(admin.TabularInline):
 class WorkspaceAdmin(admin.ModelAdmin):
 	inlines = [WorkspaceUsersInline]
 	prepopulated_fields = {"slug" : ("name",)}
+
+admin.site.register(Project)
+admin.site.register(ProjectResource)

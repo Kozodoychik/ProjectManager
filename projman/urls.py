@@ -19,9 +19,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-	path('', include('projman.workspace.urls')),
-	path('', include('projman.login.urls')),
 	path('', include('projman.registries.urls')),
+	path('', include('projman.login.urls')),
 	path('params/', include('projman.params.urls')),
 	path('admin/', admin.site.urls),
+	path('', include('projman.workspace.urls')),
 ]

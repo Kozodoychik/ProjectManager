@@ -1,6 +1,10 @@
 let createBtn = document.getElementById("btn-create");
-let editBtn = document.getElementById("btn-edit");
 let deleteBtn = document.getElementById("btn-delete");
+let editBtn = document.getElementById("btn-edit");
+
+let toolbarBtns = document.querySelectorAll(".toolbar-btn");
+let oneFieldActivatedBtns = document.querySelectorAll(".toolbar-btn-one");
+
 let selectAllCheckbox = document.getElementById("select-all-checkbox");
 
 let fieldsCount = document.getElementsByClassName("field-checkbox").length;
@@ -12,16 +16,23 @@ let selectedFields = [];
 
 function updateButtons() {
 	if (selectedFields.length > 0) {
-		deleteBtn.classList.remove("disabled");
-		editBtn.classList.add("disabled");
+		toolbarBtns.forEach((btn) => {
+			btn.classList.remove("disabled");
+		});
+		oneFieldActivatedBtns.forEach((btn) => {
+			btn.classList.add("disabled");
+		});
 	}
 	else {
-		deleteBtn.classList.add("disabled");
-		editBtn.classList.add("disabled");
+		toolbarBtns.forEach((btn) => {
+			btn.classList.add("disabled");
+		});
 	}
 
 	if (selectedFields.length == 1)
-		editBtn.classList.remove("disabled");
+		oneFieldActivatedBtns.forEach((btn) => {
+			btn.classList.remove("disabled");
+		});
 }
 
 function onCheckboxChange(e) {

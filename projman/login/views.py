@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,7 +7,7 @@ from .forms import LoginForm
 # Create your views here.
 def login_view(request: HttpRequest):
 	if request.user.is_authenticated:
-		return HttpResponseRedirect("/")
+		return redirect("/")
 
 	message = ""
 	if request.method == "POST":
@@ -15,7 +15,7 @@ def login_view(request: HttpRequest):
 		user = authenticate(request, username=login_data.data["email"], password=login_data.data["password"])
 		if user:
 			login(request, user)
-			return HttpResponseRedirect(request.POST["next"] or "/")
+			return redirect(request.POST["next"] or "/")
 		else:
 			message = 'Неправильный адрес эл. почты или пароль'
 
@@ -24,7 +24,7 @@ def login_view(request: HttpRequest):
 		"login.html", 
 		{
 			"form" : LoginForm({"email":request.POST.get("email") or "", "password" : ""}), 
-			"next" : request.GET.get("next") or "/",
+			"next" : request.GET.get("next") or "",
 			"message" : message
 		}
 	)
