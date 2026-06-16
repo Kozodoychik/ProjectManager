@@ -44,7 +44,7 @@ def create_customer_view(request: HttpRequest):
 			else:
 				message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Заказчики", "action_name" : "Создать", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Заказчики", "action_name" : "Создать", "form" : form, "message" : message})
 
 @login_required
 def create_executor_view(request: HttpRequest):
@@ -60,7 +60,7 @@ def create_executor_view(request: HttpRequest):
 		else:
 			message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Исполнители", "action_name" : "Создать", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Исполнители", "action_name" : "Создать", "form" : form, "message" : message})
 
 @login_required
 def create_device_view(request):
@@ -76,7 +76,7 @@ def create_device_view(request):
 		else:
 			message = "Проверьте правильность введённых данных"
 		
-	return render(request, "create.html", {"reg_name" : "Оборудование", "action_name" : "Создать", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Оборудование", "action_name" : "Создать", "form" : form, "message" : message})
 
 @login_required
 def create_employee_view(request):
@@ -92,10 +92,10 @@ def create_employee_view(request):
 		else:
 			message = "Проверьте правильность введённых данных"
 		
-	return render(request, "create.html", {"reg_name" : "Сотрудники", "action_name" : "Создать", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Сотрудники", "action_name" : "Создать", "form" : form, "message" : message})
 
 @login_required
-def customers_delete(request: HttpRequest):
+def customers_bulk_delete(request: HttpRequest):
 	if request.method != "POST" or not "ids" in request.POST:
 		return HttpResponseBadRequest()
 
@@ -105,7 +105,7 @@ def customers_delete(request: HttpRequest):
 	return HttpResponseRedirect("/customers");
 
 @login_required
-def executors_delete(request: HttpRequest):
+def executors_bulk_delete(request: HttpRequest):
 	if request.method != "POST" or not "ids" in request.POST:
 		return HttpResponseBadRequest()
 	
@@ -115,7 +115,7 @@ def executors_delete(request: HttpRequest):
 	return HttpResponseRedirect("/executors");
 
 @login_required
-def hardware_delete(request: HttpRequest):
+def hardware_bulk_delete(request: HttpRequest):
 	if request.method != "POST" or not "ids" in request.POST:
 		return HttpResponseBadRequest()
 	
@@ -125,7 +125,7 @@ def hardware_delete(request: HttpRequest):
 	return HttpResponseRedirect("/hardware");
 
 @login_required
-def staff_delete(request: HttpRequest):
+def staff_bulk_delete(request: HttpRequest):
 	if request.method != "POST" or not "ids" in request.POST:
 		return HttpResponseBadRequest()
 	
@@ -135,7 +135,39 @@ def staff_delete(request: HttpRequest):
 	return HttpResponseRedirect("/staff");
 
 @login_required
-def customers_edit(request: HttpRequest, id: int):
+def customer_delete(request: HttpRequest, id: int):
+	if not Customers.objects.filter(id=id): return HttpResponseNotFound()
+
+	Customers.objects.filter(id=id).delete()
+
+	return HttpResponseRedirect("/customers")
+
+@login_required
+def executor_delete(request: HttpRequest, id: int):
+	if not Executors.objects.filter(id=id): return HttpResponseNotFound()
+
+	Executors.objects.filter(id=id).delete()
+
+	return HttpResponseRedirect("/executors")
+
+@login_required
+def device_delete(request: HttpRequest, id: int):
+	if not Hardware.objects.filter(id=id): return HttpResponseNotFound()
+
+	Hardware.objects.filter(id=id).delete()
+
+	return HttpResponseRedirect("/hardware")
+
+@login_required
+def employee_delete(request: HttpRequest, id: int):
+	if not Staff.objects.filter(id=id): return HttpResponseNotFound()
+
+	Staff.objects.filter(id=id).delete()
+
+	return HttpResponseRedirect("/staff")
+
+@login_required
+def customer_edit(request: HttpRequest, id: int):
 	message = None
 
 	customer = Customers.objects.filter(id=id)
@@ -152,10 +184,10 @@ def customers_edit(request: HttpRequest, id: int):
 		else:
 			message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Заказчики", "action_name" : "Изменить", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Заказчики", "action_name" : "Изменить", "form" : form, "message" : message})
 
 @login_required
-def executors_edit(request: HttpRequest, id: int):
+def executor_edit(request: HttpRequest, id: int):
 	message = None
 
 	executor = Executors.objects.filter(id=id)
@@ -172,10 +204,10 @@ def executors_edit(request: HttpRequest, id: int):
 		else:
 			message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Исполнители", "action_name" : "Изменить", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Исполнители", "action_name" : "Изменить", "form" : form, "message" : message})
 
 @login_required
-def hardware_edit(request: HttpRequest, id: int):
+def device_edit(request: HttpRequest, id: int):
 	message = None
 
 	device = Hardware.objects.filter(id=id)
@@ -192,10 +224,10 @@ def hardware_edit(request: HttpRequest, id: int):
 		else:
 			message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Оборудование", "action_name" : "Изменить", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Оборудование", "action_name" : "Изменить", "form" : form, "message" : message})
 
 @login_required
-def staff_edit(request: HttpRequest, id: int):
+def employee_edit(request: HttpRequest, id: int):
 	message = None
 
 	employee = Staff.objects.filter(id=id)
@@ -212,4 +244,4 @@ def staff_edit(request: HttpRequest, id: int):
 		else:
 			message = "Проверьте правильность введённых данных"
 
-	return render(request, "create.html", {"reg_name" : "Сотрудники", "action_name" : "Изменить", "form" : form, "message" : message})
+	return render(request, "form-base.html", {"reg_name" : "Сотрудники", "action_name" : "Изменить", "form" : form, "message" : message})

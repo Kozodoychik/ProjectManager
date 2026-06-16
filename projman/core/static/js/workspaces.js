@@ -1,5 +1,6 @@
 function workspaceRedirect(e) {
-	window.location = e.target.dataset.slug;
+	console.log(e);
+	window.location = e.target.parentNode.dataset.slug;
 }
 
 document.querySelectorAll(".workspace-card-header").forEach((card) => {

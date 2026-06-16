@@ -78,31 +78,36 @@ document.querySelectorAll(".field-checkbox").forEach(checkbox => {
 });
 
 deleteBtn.addEventListener("click", (e) => {
-	let f = document.createElement("form");
-	f.action = "delete";
-	f.method = "POST";
+	if (selectedFields.length > 1) {
+		let f = document.createElement("form");
+		f.action = "bulk-delete/";
+		f.method = "POST";
 
-	let i = document.createElement("input");
-	i.type = "hidden";
-	i.name = "ids";
-	i.value = JSON.stringify(selectedFields);
+		let i = document.createElement("input");
+		i.type = "hidden";
+		i.name = "ids";
+		i.value = JSON.stringify(selectedFields);
 
-	let csrf = document.createElement("input");
-	csrf.type = "hidden";
-	csrf.name = "csrfmiddlewaretoken";
-	csrf.value = csrfToken;
+		let csrf = document.createElement("input");
+		csrf.type = "hidden";
+		csrf.name = "csrfmiddlewaretoken";
+		csrf.value = csrfToken;
 
-	f.appendChild(csrf);
-	f.appendChild(i);
+		f.appendChild(csrf);
+		f.appendChild(i);
 
-	document.body.appendChild(f);
-	f.submit();
+		document.body.appendChild(f);
+		f.submit();
+	}
+	else if (selectedFields.length == 1) {
+		window.location = `${selectedFields[0]}/delete`;
+	}
 });
 
 editBtn.addEventListener("click", (e) => {
 	if (selectedFields.length != 1) return;
 
-	window.location = `edit/${selectedFields[0]}`;
+	window.location = `${selectedFields[0]}/edit`;
 });
 
 selectAllCheckbox.addEventListener("change", selectAll);

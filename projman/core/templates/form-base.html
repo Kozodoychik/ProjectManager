@@ -17,7 +17,6 @@
 			{% for field in form %}
 			<div class="form-field">
 				<label for="{{ field.name }}"><span>{{ field.label }}</span></label>
-				<!-- <input class="form-input-text" id="{{ field.name }}" name="{{ field.name }}" type="{{ field.field.widget.input_type }}" value="{{ field.field.widget.choices }}" required /> -->
 				{% render_field field class="form-input-text" id=field.name %}
 			</div>
 			{% endfor %}

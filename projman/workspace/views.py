@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from projman.projects.forms import ProjectForm
 from .models import Workspace
-from .forms import *
+from .forms import WorkspaceForm
 
 # Create your views here.
 @login_required
@@ -22,7 +23,7 @@ def workspace_create(request: HttpRequest):
 			return HttpResponseRedirect("/")
 		message = "Проверьте правильность введённых данных"
 
-	return render(request, "create_workspace.html", {"form" : form, "reg_name" : "Рабочие области", "action_name" : "Создать", "message" : message})
+	return render(request, "form-base.html", {"form" : form, "reg_name" : "Рабочие области", "action_name" : "Создать", "message" : message})
 
 @login_required
 def workspace_edit(request, slug):
@@ -44,7 +45,7 @@ def workspace_edit(request, slug):
 		if Workspace.objects.filter(slug=request.POST["slug"]):
 			message = "Рабочая область с таким поддоменом уже существует"
 	
-	return render(request, "create_workspace.html", {"form" : form, "reg_name" : "Рабочие области", "action_name" : "Изменить", "message" : message})
+	return render(request, "form-base.html", {"form" : form, "reg_name" : "Рабочие области", "action_name" : "Изменить", "message" : message})
 
 @login_required
 def workspace_delete(request, slug):
@@ -73,13 +74,14 @@ def workspace_project_create(request: HttpRequest, slug):
 
 	if request.method == "POST":
 		form = ProjectForm(request.POST)
+		print(request.POST)
 
 		if form.is_valid():
 			project = form.save(commit=False)
 			project.workspace = workspace[0]
 			project.save()
-			
+
 			return HttpResponseRedirect(f"/{slug}")
 		message = "Проверьте правильность введённых данных"
 
-	return render(request, "create-project.html", {"form" : form, "reg_name" : f"{workspace[0].name}", "action_name" : "Создать проект", "message" : message});
+	return render(request, "form-base.html", {"form" : form, "reg_name" : f"{workspace[0].name}", "action_name" : "Создать проект", "message" : message});
