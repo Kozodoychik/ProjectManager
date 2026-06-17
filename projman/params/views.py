@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
-from django.template import loader
+from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from .forms import ParamForm
 from projman.core.models import Company

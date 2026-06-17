@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}{{ action_name }}{% endblock title %}
+{% block page_title %}{{ reg_name }} - {{ action_name }}{% endblock page_title %}
+
+{% block content %}
+<section>
+	<form action="" method="{% if request.GET.step == "2" %}POST{% else %}GET{% endif %}">
+		{% if not request.GET.step %}
+			<fieldset>
+				{% if message %}
+					<span class="message">{{ message }}</span>
+				{% endif %}
+				<legend>Информация</legend>
+				{% for field in form %}
+				<div class="form-field">
+					<label for="{{ field.name }}"><span>{{ field.label }}</span></label>
+					{% render_field field class="form-input-text" id=field.name %}
+				</div>
+				{% endfor %}
+				<input type="hidden" name="step" value="1"/>
+			</fieldset>
+			<div class="form-btns">
+				<input class="btn" type="submit" value="Далее"/>
+				<button class="btn btn-cancel">Назад</button>
+			</div>
+		{% elif request.GET.step == "1" %}
+			{% if request.GET.resource_type == "0" %}
+				<table>
+					<tr class="table-header">
+						<th></th>
+						<th>ФИО</th>
+						<th>Тип оформления</th>
+						<th>Расчётная налоговая ставка</th>
+						<th>Единица измерения</th>
+						<th>Стоимость услуг за ед. измерения</th>
+					</tr>
+
+					{% for executor in executors %}
+					<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+						<td><input name="resource_id" type="radio" value="{{ executor.id }}" required/></td>
+						<td>{{ executor.name }}</td>
+						<td>{{ executor.get_registration_type }}</td>
+						<td>{{ executor.tax_rate }}%</td>
+						<td>{{ executor.get_unit }}</td>
+						<td>{{ executor.unit_cost }} руб.</td>
+					</tr>
+					{% endfor %}	
+				</table>
+				<div class="form-btns">
+					<input class="btn" type="submit" value="Далее" {% if executors.count == 0 %}disabled{% endif %}/>
+					<button class="btn btn-cancel">Назад</button>
+				</div>
+			{% elif request.GET.resource_type == "1" %}
+				<table>
+					<tr class="table-header">
+						<th></th>
+						<th>Название</th>
+						<th>Тип приобретения</th>
+						<th>Эксплуатационная стоимость</th>
+						<th>Единица измерения</th>
+						<th>Стоимость услуг за ед. измерения</th>
+					</tr>
+				
+					{% for device in hardware %}
+					<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+						<td><input name="resource_id" type="radio" value="{{ device.id }}" required/></td>
+						<td>{{ device.name }}</td>
+						<td>{{ device.get_purchase_type }}</td>
+						<td>{{ device.operating_cost }} руб.</td>
+						<td>{{ device.get_unit }}</td>
+						<td>{{ device.unit_cost }} руб.</td>
+					</tr>
+					{% endfor %}	
+				</table>
+				<div class="form-btns">
+					<input class="btn" type="submit" value="Далее" {% if hardware.count == 0 %}disabled{% endif %}/>
+					<button class="btn btn-cancel">Назад</button>
+				</div>
+			{% elif request.GET.resource_type == "2" %}
+				<table>
+					<tr class="table-header">
+						<th></th>
+						<th>ФИО</th>
+						<th>Должность</th>
+						<th>Заработная плата (в месяц)</th>
+						<th>Расчётная налоговая ставка</th>
+					</tr>
+				
+					{% for employee in staff %}
+					<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+						<td><input name="resource_id" type="radio" value="{{ employee.id }}" required/></td>
+						<td>{{ employee.name }}</td>
+						<td>{{ employee.position }}</td>
+						<td>{{ employee.salary }} руб.</td>
+						<td>{{ employee.tax_rate }}%</td>
+					</tr>
+					{% endfor %}	
+				</table>
+				<div class="form-btns">
+					<input class="btn" type="submit" value="Далее" {% if staff.count == 0 %}disabled{% endif %}/>
+					<button class="btn btn-cancel">Назад</button>
+				</div>
+			{% endif %}
+			<input type="hidden" name="step" value="2"/>
+			<input type="hidden" name="resource_type" value="{{ request.GET.resource_type }}"/>
+		{% elif request.GET.step == "2" %}
+			{% csrf_token %}
+			<fieldset>
+				{% if message %}
+					<span class="message">{{ message }}</span>
+				{% endif %}
+				<legend>Информация</legend>
+				{% for field in resource_form %}
+				<div class="form-field">
+					<label for="{{ field.name }}"><span>{{ field.label }}</span></label>
+					{% render_field field class="form-input-text" id=field.name %}
+				</div>
+				{% endfor %}
+				<input type="hidden" name="resource_type" value="{{ request.GET.resource_type }}"/>
+				<input type="hidden" name="resource_id" value="{{ request.GET.resource_id }}"/>
+			</fieldset>
+			<div class="form-btns">
+				<input class="btn" type="submit" value="Далее"/>
+				<button class="btn btn-cancel">Назад</button>
+			</div>
+		{% endif %}
+	</form>
+</section>
+{% endblock content %}

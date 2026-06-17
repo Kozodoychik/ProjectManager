@@ -1,14 +1,14 @@
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponseRedirect, HttpResponseNotFound, HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from projman.projects.forms import ProjectForm
-from .models import Workspace
+from .models import *
 from .forms import WorkspaceForm
+from .utils import can_manage_projects
 
-# Create your views here.
 @login_required
 def workspace(request):
-	return render(request, "workspace.html", {"workspaces" : Workspace.objects.all()})
+	return render(request, "workspace.html", {"workspaces" : Workspace.objects.filter()})
 
 @login_required
 def workspace_create(request: HttpRequest):
@@ -19,7 +19,10 @@ def workspace_create(request: HttpRequest):
 		form = WorkspaceForm(request.POST)
 
 		if form.is_valid():
-			form.save()
+			workspace = form.save(commit=False)
+			workspace.admin = request.user
+			workspace.save()
+
 			return HttpResponseRedirect("/")
 		message = "Проверьте правильность введённых данных"
 
@@ -28,14 +31,12 @@ def workspace_create(request: HttpRequest):
 @login_required
 def workspace_edit(request, slug):
 	message = None
-	workspace = Workspace.objects.filter(slug=slug)
+	workspace = get_object_or_404(Workspace, slug=slug)
 
-	if not workspace: return HttpResponseNotFound()
-
-	form = WorkspaceForm(instance=workspace[0])
+	form = WorkspaceForm(instance=workspace)
 
 	if request.method == "POST":
-		form = WorkspaceForm(request.POST, instance=workspace[0])
+		form = WorkspaceForm(request.POST, instance=workspace)
 
 		if form.is_valid():
 			form.save()
@@ -55,20 +56,18 @@ def workspace_delete(request, slug):
 
 @login_required
 def workspace_projects(request: HttpRequest, slug):
-	workspace = Workspace.objects.filter(slug=slug)
-
-	if not workspace: return HttpResponseNotFound()
+	workspace = get_object_or_404(Workspace, slug=slug)
 	
-	projects = workspace[0].workspace_projects.all()
+	projects = workspace.workspace_projects.all()
 
-	return render(request, "projects.html", {"workspace_name" : workspace[0].name, "projects" : projects})
+	return render(request, "projects.html", {"workspace_name" : workspace.name, "projects" : projects})
 
 @login_required
 def workspace_project_create(request: HttpRequest, slug):
-	message = None
-	workspace = Workspace.objects.filter(slug=slug)
+	if not can_manage_projects(request, slug): return HttpResponseForbidden()
 
-	if not workspace: return HttpResponseNotFound()
+	message = None
+	workspace = get_object_or_404(Workspace, slug=slug)
 
 	form = ProjectForm(request.POST)
 
@@ -78,10 +77,10 @@ def workspace_project_create(request: HttpRequest, slug):
 
 		if form.is_valid():
 			project = form.save(commit=False)
-			project.workspace = workspace[0]
+			project.workspace = workspace
 			project.save()
 
 			return HttpResponseRedirect(f"/{slug}")
 		message = "Проверьте правильность введённых данных"
 
-	return render(request, "form-base.html", {"form" : form, "reg_name" : f"{workspace[0].name}", "action_name" : "Создать проект", "message" : message});
+	return render(request, "form-base.html", {"form" : form, "reg_name" : f"{workspace.name}", "action_name" : "Создать проект", "message" : message});

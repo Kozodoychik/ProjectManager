@@ -104,7 +104,7 @@ deleteBtn.addEventListener("click", (e) => {
 	}
 });
 
-editBtn.addEventListener("click", (e) => {
+editBtn?.addEventListener("click", (e) => {
 	if (selectedFields.length != 1) return;
 
 	window.location = `${selectedFields[0]}/edit`;

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ project_name }} - Ресурсы{% endblock title %}
+{% block page_title %}{{ project_name }} - Ресурсы{% endblock page_title %}
+
+{% block header %}
+<meta name="csrf-token" content="{{ csrf_token }}"/>
+{% endblock header %}
+
+{% block content %}
+<section>
+	<div class="toolbar">
+		<a id="btn-create" href="add">Добавить</a>
+		<a class="disabled toolbar-btn toolbar-btn-any" id="btn-delete">Удалить</a>
+	</div>
+	<table>
+		<tr class="table-header">
+			<th><input id="select-all-checkbox" type="checkbox"/></th>
+			<th>Название</th>
+			<th>Тип</th>
+			<th>Услуга</th>
+			<th>Срок окончания</th>
+			<th>Себестоимость</th>
+			<th>Стоимость с марж.</th>
+		</tr>
+
+		{% for resource in resources %}
+		<tr class="{% if forloop.counter|divisibleby:2 %}tr-even{% else %}tr-odd{% endif %}">
+			<td><input class="field-checkbox" type="checkbox" data-id="{{ resource.id }}"/></td>
+			<td>{{ resource.name }}</td>
+			<td>{{ resource.get_type }}</td>
+			<td>{{ resource.service_name }}</td>
+			<td>{{ resource.deadline }}</td>
+			<td>{{ resource.calculate_cost|floatformat:2 }} руб.</td>
+			<td>0 руб.</td>
+		</tr>
+		{% endfor %}	
+	</table>
+</section>
+{% endblock content %}
+
+{% block footer %}
+<script src="{% static 'js/table-toolbar.js' %}"></script>
+{% endblock footer %}

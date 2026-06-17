@@ -7,16 +7,21 @@ from django.utils.translation import gettext_lazy
 
 # Create your models here.
 class Workspace(models.Model):
+	class Meta:
+		permissions = [
+			("can_manage_projects", "Может управлять проектами")
+		]
+
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(unique=True)
 	admin = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="admin_workspaces")
-	users = models.ManyToManyField(User, through="WorkspacePermissions", related_name="workspaces")
+	users = models.ManyToManyField(User, blank=True)
 
 class WorkspacePermissions(models.Model):
-	workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="workspace")
-	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+	workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="permissions")
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="workspace_permissions")
 
-	can_edit = models.BooleanField(default=False, null=False)
+	can_manage_projects = models.BooleanField(default=False, null=False)
 
 @receiver(pre_save, sender=Workspace)
 def gen_slug(sender, instance, **kwargs):

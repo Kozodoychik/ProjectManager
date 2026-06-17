@@ -1,4 +1,6 @@
-function page_reload(e) {
+function page_back(e) {
 	e.preventDefault();
-	location.reload();
+	history.back();
 }
+
+document.querySelector(".btn-cancel")?.addEventListener("click", page_back);

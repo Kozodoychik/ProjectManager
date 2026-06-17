@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpRequest, HttpResponseBadRequest, HttpResponseNotFound
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect, HttpRequest, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
@@ -136,33 +136,29 @@ def staff_bulk_delete(request: HttpRequest):
 
 @login_required
 def customer_delete(request: HttpRequest, id: int):
-	if not Customers.objects.filter(id=id): return HttpResponseNotFound()
-
-	Customers.objects.filter(id=id).delete()
+	customer = get_object_or_404(Customers, id=id)
+	customer.delete()
 
 	return HttpResponseRedirect("/customers")
 
 @login_required
 def executor_delete(request: HttpRequest, id: int):
-	if not Executors.objects.filter(id=id): return HttpResponseNotFound()
-
-	Executors.objects.filter(id=id).delete()
+	executor = get_object_or_404(Executors, id=id)
+	executor.delete()
 
 	return HttpResponseRedirect("/executors")
 
 @login_required
 def device_delete(request: HttpRequest, id: int):
-	if not Hardware.objects.filter(id=id): return HttpResponseNotFound()
-
-	Hardware.objects.filter(id=id).delete()
+	device = get_object_or_404(Hardware, id=id)
+	device.delete()
 
 	return HttpResponseRedirect("/hardware")
 
 @login_required
 def employee_delete(request: HttpRequest, id: int):
-	if not Staff.objects.filter(id=id): return HttpResponseNotFound()
-
-	Staff.objects.filter(id=id).delete()
+	employee = get_object_or_404(Staff, id=id)
+	employee.delete()
 
 	return HttpResponseRedirect("/staff")
 
@@ -170,8 +166,7 @@ def employee_delete(request: HttpRequest, id: int):
 def customer_edit(request: HttpRequest, id: int):
 	message = None
 
-	customer = Customers.objects.filter(id=id)
-	if len(customer) == 0: return HttpResponseNotFound()
+	customer = get_object_or_404(Customers, id=id)
 
 	form = CustomerForm(instance=customer[0])
 
@@ -190,8 +185,7 @@ def customer_edit(request: HttpRequest, id: int):
 def executor_edit(request: HttpRequest, id: int):
 	message = None
 
-	executor = Executors.objects.filter(id=id)
-	if len(executor) == 0: return HttpResponseNotFound()
+	executor = get_object_or_404(Executors, id=id)
 
 	form = ExecutorForm(instance=executor[0])
 
@@ -210,8 +204,7 @@ def executor_edit(request: HttpRequest, id: int):
 def device_edit(request: HttpRequest, id: int):
 	message = None
 
-	device = Hardware.objects.filter(id=id)
-	if len(device) == 0: return HttpResponseNotFound()
+	device = get_object_or_404(Hardware, id=id)
 
 	form = DeviceForm(instance=device[0])
 
@@ -230,8 +223,7 @@ def device_edit(request: HttpRequest, id: int):
 def employee_edit(request: HttpRequest, id: int):
 	message = None
 
-	employee = Staff.objects.filter(id=id)
-	if len(employee) == 0: return HttpResponseNotFound()
+	employee = get_object_or_404(Staff, id=id)
 
 	form = EmployeeForm(instance=employee[0])
 

@@ -146,12 +146,12 @@ fieldset legend {
 	background-color: #436a77;
 }
 
-.cancel-btn {
+.btn-cancel {
 	background-color: #00000000;
 	color: #548696;
 }
 
-.cancel-btn:hover {
+.btn-cancel:hover {
 	cursor: pointer;
 	background-color: #00000000;
 	color: #548696;
@@ -251,10 +251,22 @@ td {
 	color: black;
 }
 
+.workspace-card {
+	display: flex;
+	flex-direction: column;
+}
+
 .workspace-card-header {
 	width: max-content;
 }
 
 .workspace-card-header:hover {
 	cursor: pointer;
+}
+
+/* Максимально сомнительное решение */
+.flex-div {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }

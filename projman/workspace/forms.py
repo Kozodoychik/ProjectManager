@@ -6,11 +6,10 @@ from projman.projects.models import *
 class WorkspaceForm(forms.ModelForm):
 	class Meta:
 		model = Workspace
-		fields = ["name", "slug", "admin"]
+		fields = ["name", "slug"]
 		labels = {
 			"name" : "Название рабочей области",
 			"slug" : "Поддомен",
-			"admin" : "Администратор",
 		}
 
 	def __init__(self, *args, **kwargs):

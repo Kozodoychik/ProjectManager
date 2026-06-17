@@ -15,15 +15,20 @@
 	<section class="workspace-card" data-slug="{{ workspace.slug }}">
 		<h2 class="workspace-card-header">{{ workspace.name }}</h2>
 		<span>Проектов: {{ workspace.workspace_projects.count }}</span>
+		<span>Администратор: {{ workspace.admin }}</span>
+		{% if workspace.admin == user %}
 		<div class="workspaces-toolbar">
 			<a href="{{ workspace.slug }}/edit">Изменить</a>
 			<a href="{{ workspace.slug }}/delete">Удалить</a>
 		</div>
+		{% endif %}
 	</section>
 	{% endfor %}
+	{% if perms.workspace.add_workspace %}
 	<section class="add-workspace-btn">
 		<h2><a href="/create">Создать рабочую область</a></h2>
 	</section>
+	{% endif %}
 </div>
 {% endblock content %}
 
