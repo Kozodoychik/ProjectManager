@@ -47,24 +47,6 @@ def project_delete(request: HttpRequest, workspace_slug, project_id):
 	return redirect(f"/{workspace_slug}")
 
 @login_required
-def projects_bulk_delete(request: HttpRequest, workspace_slug):
-	if not can_manage_projects(request, workspace_slug): return HttpResponseForbidden()
-
-	workspace = get_object_or_404(Workspace, slug=workspace_slug)
-	workspace_project_ids = list(workspace.workspace_projects.all().values_list("id", flat=True))
-
-	ids = json.loads(request.POST["ids"])
-
-	for project_id in ids:
-		print(project_id)
-		if not project_id in workspace_project_ids:
-			return HttpResponseNotFound()
-		
-	Project.objects.filter(id__in=ids).delete()
-
-	return redirect(f"/{workspace_slug}")
-
-@login_required
 def project_resources(request: HttpRequest, workspace_slug, project_id):
 	project = check_and_get_project(workspace_slug, project_id)
 

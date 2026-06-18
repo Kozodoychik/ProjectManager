@@ -34,7 +34,7 @@
 			<td>{{ resource.service_name }}</td>
 			<td>{{ resource.deadline }}</td>
 			<td>{{ resource.calculate_cost|floatformat:2 }} руб.</td>
-			<td>0 руб.</td>
+			<td>{{ resource.calculate_total|floatformat:2 }} руб.</td>
 		</tr>
 		{% endfor %}	
 	</table>

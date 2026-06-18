@@ -187,10 +187,10 @@ def executor_edit(request: HttpRequest, id: int):
 
 	executor = get_object_or_404(Executors, id=id)
 
-	form = ExecutorForm(instance=executor[0])
+	form = ExecutorForm(instance=executor)
 
 	if request.method == "POST":
-		form = ExecutorForm(request.POST, instance=executor[0])
+		form = ExecutorForm(request.POST, instance=executor)
 
 		if form.is_valid():
 			form.save()
@@ -206,10 +206,10 @@ def device_edit(request: HttpRequest, id: int):
 
 	device = get_object_or_404(Hardware, id=id)
 
-	form = DeviceForm(instance=device[0])
+	form = DeviceForm(instance=device)
 
 	if request.method == "POST":
-		form = DeviceForm(request.POST, instance=device[0])
+		form = DeviceForm(request.POST, instance=device)
 
 		if form.is_valid():
 			form.save()
@@ -225,10 +225,10 @@ def employee_edit(request: HttpRequest, id: int):
 
 	employee = get_object_or_404(Staff, id=id)
 
-	form = EmployeeForm(instance=employee[0])
+	form = EmployeeForm(instance=employee)
 
 	if request.method == "POST":
-		form = EmployeeForm(request.POST, instance=employee[0])
+		form = EmployeeForm(request.POST, instance=employee)
 
 		if form.is_valid():
 			form.save()

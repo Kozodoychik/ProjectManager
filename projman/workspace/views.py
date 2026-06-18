@@ -73,7 +73,6 @@ def workspace_project_create(request: HttpRequest, slug):
 
 	if request.method == "POST":
 		form = ProjectForm(request.POST)
-		print(request.POST)
 
 		if form.is_valid():
 			project = form.save(commit=False)
@@ -84,3 +83,9 @@ def workspace_project_create(request: HttpRequest, slug):
 		message = "Проверьте правильность введённых данных"
 
 	return render(request, "form-base.html", {"form" : form, "reg_name" : f"{workspace.name}", "action_name" : "Создать проект", "message" : message});
+
+@login_required
+def workspace_users(request: HttpRequest, slug):
+	workspace = get_object_or_404(Workspace, slug=slug)
+	users = WorkspacePermissions.objects.filter(workspace=workspace)
+	return render(request, "workspace-users.html", {"ws_perms" : users, "workspace_name" : workspace.name})

@@ -15,7 +15,5 @@ patterns_project = [
 ]
 
 urlpatterns = [
-	path('bulk-delete/', views.projects_bulk_delete),
-
 	path('<int:project_id>/', include((patterns_project, 'project'), namespace='project')),
 ]

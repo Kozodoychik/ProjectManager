@@ -5,29 +5,33 @@ from .models import *
 class ProjectForm(forms.ModelForm):
 	class Meta:
 		model = Project
-		fields = ["name", "deadline", "description", "customer", "tax_rate"]
+		fields = ["name", "start_date", "deadline", "description", "customer", "tax_rate"]
 		labels = {
 			"name" : "Название",
-			"deadline" : "Дата окончания",
+			"start_date" : "Дата начала выполнения",
+			"deadline" : "Дата окончания выполнения",
 			"description" : "Описание",
 			"customer" : "Заказчик",
-			"tax_rate" : "Налоговая ставка"
+			"tax_rate" : "Налоговая ставка (проценты)"
 		}
 		widgets = {
+			"start_date" : DateInput(format="%Y-%m-%d"),
 			"deadline" : DateInput(format="%Y-%m-%d")
 		}
 
 class ProjectResourceForm(forms.ModelForm):
 	class Meta:
 		model = ProjectResource
-		fields = ["name", "deadline", "service_name", "marginality"]
+		fields = ["name", "start_date", "deadline", "service_name", "marginality"]
 		labels = {
 			"name" : "Название ресурса",
-			"deadline" : "Дата окончания",
+			"start_date" : "Дата начала выполнения",
+			"deadline" : "Дата окончания выполнения",
 			"service_name" : "Название услуги",
-			"marginality" : "Маржинальность"
+			"marginality" : "Маржинальность (проценты)"
 		}
 		widgets = {
+			"start_date" : DateInput(format="%Y-%m-%d"),
 			"deadline" : DateInput(format="%Y-%m-%d")
 		}
 

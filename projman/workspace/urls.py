@@ -7,6 +7,7 @@ patterns_workspace = [
 	path('create/', views.workspace_project_create),
 	path('edit/', views.workspace_edit),
 	path('delete/', views.workspace_delete),
+	path('users/', views.workspace_users)
 ]
 
 urlpatterns = [

@@ -10,6 +10,7 @@ html, body {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	
 }
 
 header {
@@ -35,6 +36,7 @@ header a {
 	display: grid;
 	grid-template-columns: 250px 1fr;
 	height: 100vh;
+	overflow: auto;
 }
 
 aside {
@@ -69,6 +71,12 @@ main {
 	padding: 26px;
 	background-color: #dfe6e9;
 	height: stretch;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	overflow-y: scroll;
 }
 
 .centered {
@@ -138,6 +146,8 @@ fieldset legend {
 	border-radius: 2px;
 
 	color: white;
+	text-decoration: none;
+	text-align: center;
 }
 
 .btn:hover {
@@ -155,6 +165,17 @@ fieldset legend {
 	cursor: pointer;
 	background-color: #00000000;
 	color: #548696;
+}
+
+.btn-white {
+	background-color: #00000000;
+	color: #548696;
+	border: solid 1px #54859667;
+}
+
+.btn-white:hover {
+	cursor: pointer;
+	color: white;
 }
 
 .login-section {
@@ -269,4 +290,26 @@ td {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+}
+
+.project-card {
+	display: flex;
+}
+
+.project-card-body {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.project-card-btns {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 25%;
+}
+
+.project-cost {
+	font-weight: 700;
+	font-size: xx-large;
 }
